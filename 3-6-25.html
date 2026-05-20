@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speaking Practice — 3/6/25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --paper: #fbf8f1;
+    --ink: #1b1d1c;
+    --ink-soft: #3d423f;
+    --muted: #7a7a6f;
+    --rule: #d9d2c2;
+    --rule-soft: #e7e1d2;
+    --accent: #2f5d50;
+    --accent-soft: #cfdfd8;
+    --ok: #2f5d50;
+    --ok-bg: #d8e8de;
+    --bad: #a43a2b;
+    --bad-bg: #f0d6cf;
+    --warn: #9a7b1e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 28px 160px;
+  }
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+  .masthead .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .masthead h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(28px, 4.4vw, 40px);
+    line-height: 1.08;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .masthead .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .intro {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 44px;
+  }
+  .intro b { color: var(--ink); font-weight: 600; }
+
+  .part {
+    margin-top: 56px;
+  }
+  .part-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  .part-title {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0 0 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.01em;
+  }
+
+  .question {
+    margin: 0 0 34px;
+    padding: 0;
+  }
+  .q-head {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    margin: 0 0 14px;
+  }
+  .q-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 24px;
+  }
+  .q-text {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0;
+  }
+  .prompt-block {
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+    padding: 18px 22px 20px 26px;
+    position: relative;
+  }
+  .prompt-block::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 4px 0 0 4px;
+    opacity: 0.55;
+  }
+  .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3em;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .line.plain { color: var(--muted); }
+  .line .bullet {
+    color: var(--rule);
+    margin-right: 4px;
+  }
+
+  /* Inputs */
+  .blank-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  .blank {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+    border-radius: 3px;
+    padding: 3px 8px 2px;
+    min-width: 90px;
+    width: var(--w, 90px);
+    outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .blank:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .blank::placeholder {
+    color: var(--muted);
+    font-weight: 400;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  /* Result states — color the field but never expose the answer */
+  .blank.ok {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+  .blank.bad {
+    border-color: var(--bad);
+    background: var(--bad-bg);
+    color: var(--bad);
+  }
+  .blank.ok:focus, .blank.bad:focus {
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+  }
+  .blank-mark {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 14px;
+    font-size: 11px;
+    border-radius: 50%;
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    opacity: 0;
+    transform: translateY(-1px);
+    transition: opacity .2s;
+  }
+  .blank-mark.show { opacity: 1; }
+  .blank-mark.ok { background: var(--ok); }
+  .blank-mark.bad { background: var(--bad); }
+
+  /* Status bar */
+  .statusbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(251, 248, 241, 0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-top: 1px solid var(--rule);
+    z-index: 50;
+  }
+  .statusbar-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .score {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .score b {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+  .score-dots {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .score-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+  .score-dot.ok { background: var(--ok); }
+  .score-dot.bad { background: var(--bad); }
+  .spacer { flex: 1; }
+  button.btn {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: 3px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: transform .08s, background .15s;
+  }
+  button.btn:hover { background: #000; }
+  button.btn:active { transform: translateY(1px); }
+  button.btn.ghost {
+    background: transparent;
+    color: var(--ink);
+  }
+  button.btn.ghost:hover { background: rgba(0,0,0,0.04); }
+
+  /* Section score chip */
+  .section-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-left: 14px;
+    vertical-align: middle;
+  }
+  .section-meta b { color: var(--ink); font-weight: 600; }
+
+  /* P2 bullet list */
+  .p2-bullets {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin: -6px 0 18px;
+    padding-left: 14px;
+    border-left: 2px solid var(--rule-soft);
+  }
+  .p2-bullets div { margin: 2px 0; }
+  .p2-bullets div::before {
+    content: "— ";
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* Confirmation toast */
+  .toast {
+    position: fixed;
+    bottom: 88px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 60;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 560px) {
+    .page { padding: 32px 18px 160px; }
+    .masthead { grid-template-columns: 1fr; }
+    .masthead .meta { text-align: left; }
+    .statusbar-inner { padding: 10px 18px; }
+  }
+
+  /* === Start screen ============================================ */
+  .start-back {
+    position: fixed; inset: 0;
+    background: rgba(20, 22, 20, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 80;
+    display: flex;
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .start-back.hide { display: none; }
+  .start-modal {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    max-width: 440px; width: 100%;
+    padding: 30px 30px 26px;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,.45);
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  .start-modal .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 6px;
+  }
+  .start-modal h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0 0 6px;
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  .start-modal .sub {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 0 0 22px;
+    font-style: italic;
+  }
+  .start-field { margin-bottom: 14px; }
+  .start-field label {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .start-field label .req { color: var(--bad); margin-left: 3px; }
+  .start-field input {
+    width: 100%;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 15px;
+    padding: 9px 12px;
+    border: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+  }
+  .start-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .start-field input.invalid {
+    border-color: var(--bad);
+    background: var(--bad-bg);
+    box-shadow: 0 0 0 3px rgba(164,58,43,0.12);
+  }
+  .start-error {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    color: var(--bad);
+    margin: 4px 0 10px;
+    min-height: 1em;
+  }
+  .start-actions { margin-top: 14px; display: flex; justify-content: center; }
+
+  /* Identity badge in statusbar after start */
+  .who-badge {
+    display: none;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+    border-left: 1px solid var(--rule);
+    padding-left: 14px;
+    margin-left: 4px;
+    line-height: 1.4;
+  }
+  .who-badge.show { display: block; }
+  .who-badge b {
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    display: block;
+  }
+
+  /* Disable interactions until started */
+  body.locked .page { filter: blur(2px); pointer-events: none; user-select: none; }
+  body.locked .statusbar { pointer-events: none; opacity: 0.4; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&display=swap"></head>
+<body>
+
+
+<div class="page">
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">IELTS Speaking · Lesson Drill</p>
+      <h1>Speaking Practice — Vocabulary in Context</h1>
+    </div>
+    <div class="meta">
+      Lesson · 03 / 06 / 25<br>
+      Parts 1 — 2 — 3
+    </div>
+  </header>
+
+  <p class="intro">
+    Fill in each blank with the missing word. The first letter (or letters) are given as a hint.
+    When you're done, press <b>Check answers</b> — correct blanks turn green, incorrect ones turn red.
+    The correct words are not shown; rework the red ones and check again.
+  </p>
+
+  <div id="app"></div>
+</div>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="score">
+      Score
+      <b id="score-num">0 / 0</b>
+      <span class="score-dots" id="score-dots"></span>
+    </div>
+    <div class="who-badge" id="whoBadge">
+      <b id="whoName"></b>
+      <span id="whoClass"></span>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn ghost" id="btn-reset">Reset</button>
+    <button class="btn ghost" id="btn-check">Check answers</button>
+    <button class="btn" id="btn-submit">Submit to teacher</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ====== Start screen (name + class required) ====== -->
+<div class="start-back" id="startBack" role="dialog" aria-modal="true" aria-labelledby="startTitle">
+  <div class="start-modal">
+    <p class="eyebrow">Before you begin</p>
+    <h2 id="startTitle">Student Information</h2>
+    <p class="sub">Please enter your name and class to start. Both fields are required.</p>
+
+    <div class="start-field">
+      <label for="studentName">Full name <span class="req">*</span></label>
+      <input type="text" id="studentName" autocomplete="name" maxlength="120" placeholder="e.g. Nguyen Van A">
+    </div>
+    <div class="start-field">
+      <label for="studentClass">Class <span class="req">*</span></label>
+      <input type="text" id="studentClass" autocomplete="off" maxlength="60" placeholder="e.g. IELTS-7A">
+    </div>
+    <div class="start-error" id="startError"></div>
+    <div class="start-actions">
+      <button class="btn" id="startBtn" type="button">Start practice</button>
+    </div>
+  </div>
+</div>
+
+<!-- hidden iframe target for Google Forms POST (no-CORS) -->
+<iframe name="gform_sink" id="gformSink" style="display:none" title="form sink" aria-hidden="true"></iframe>
+
+<script>
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+/* Each "line" is either a plain string (no blank) or an array of      */
+/* segments where each segment is either a string or { hint, answer }. */
+/* `answer` accepts a string or an array of acceptable answers.        */
+
+const CONTENT = [
+  {
+    label: "Part 1",
+    title: "Science",
+    questions: [
+      {
+        q: "Do you like science?",
+        lines: [
+          [ "Be ", { hint: "k", answer: "keen" }, " on science" ],
+          [ "Be ", { hint: "con", answer: "connected" }, " to real life" ],
+          "understand how the world works",
+          "scientific knowledge",
+          "scientific developments",
+          "modern technology",
+          [ { hint: "im", answer: "improve" }, " people's lives" ],
+          [ { hint: "ad", answer: ["advances","advancements"] }, " in medicine" ],
+          "transportation systems",
+        ],
+      },
+      {
+        q: "When did you start to learn about science?",
+        lines: [
+          [ "In ", { hint: "pr", answer: "primary" }, " school" ],
+          "Have simple lessons in science",
+          "Gain basic knowledge",
+          [ "Have / develop an ", { hint: "i", answer: "interest" }, " in science" ],
+          [ "study science in ", { hint: "d", answer: "depth" } ],
+          [ "science subjects (physics, chemistry, and ", { hint: "bi", answer: "biology" }, ")" ],
+          [ "understand scientific ", { hint: "con", answer: "concepts" } ],
+          [ "Do simple scientific ", { hint: "e", answer: "experiments" } ],
+        ],
+      },
+      {
+        q: "Which science subject is interesting to you?",
+        lines: [
+          "Find sth + adj (e.g. find biology the most interesting)",
+          [ { hint: "fas", answer: "fascinating" }, " subject" ],
+          "learn about living things",
+          [ "living ", { hint: "org", answer: "organisms" } ],
+          [ "Nature is ", { hint: "com", answer: "complex" }, " and intelligent" ],
+          [ "Learn about how our bodies ", { hint: "fun", answer: "function" } ],
+          "The natural world",
+          "human health",
+          "body systems",
+        ],
+      },
+      {
+        q: "What kinds of interesting things have you done with science?",
+        lines: [
+          "Do simple scientific experiments",
+          [ { hint: "pra", answer: "practical" }, " experiments" ],
+          [ { hint: "h", answer: "hands" }, "-on experiments" ],
+          [ "mix ", { hint: "ch", answer: "chemicals" } ],
+          "grow plants",
+          [ "understand scientific ", { hint: "con", answer: "concepts" }, " better" ],
+          [ "make learning more ", { hint: "en", answer: "enjoyable" } ],
+          "learn through experiments",
+        ],
+      },
+      {
+        q: "Do you like watching science TV programs?",
+        lines: [
+          [ { hint: "edu", answer: "educational" }, " and entertaining" ],
+          "make science easier to understand",
+          [ "science ", { hint: "doc", answer: "documentaries" } ],
+          "understand complex topics",
+          [ "gain scientific ", { hint: "kn", answer: "knowledge" } ],
+          [ { hint: "ex", answer: "explore" }, " the universe" ],
+          [ { hint: "wildl", answer: "wildlife" }, " documentaries" ],
+          "improve our understanding of science",
+        ],
+      },
+      {
+        q: "Do Vietnamese people often visit science museums?",
+        lines: [
+          "Not very often",
+          "Prefer to go to",
+          [ "shopping ", { hint: "m", answer: "malls" } ],
+          [ "entertainment ", { hint: "cen", answer: ["centers","centres"] } ],
+          "science museums",
+          "students and families with children",
+          "learn many useful things there",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Part 2",
+    title: "Working in a team",
+    prompt: "Describe a time when you worked in a group",
+    bullets: [
+      "What you did",
+      "Who you worked with",
+      "What problems you faced",
+      "And explain why you worked in the group",
+    ],
+    questions: [
+      {
+        q: null,
+        lines: [
+          [ "work in a group for a university ", { hint: "pre", answer: "presentation" } ],
+          [ "last ", { hint: "sem", answer: "semester" } ],
+          "prepare a presentation for a business subject",
+          "four members in my group",
+          [ { hint: "di", answer: "divide" }, " the work into different parts" ],
+          [ "design ", { hint: "s", answer: "slides" } ],
+          "find information",
+          [ { hint: "pre", answer: "present" }, " in front of the class" ],
+          [ "My main ", { hint: "res", answer: "responsibility" }, " was …" ],
+          "collect information",
+          [ "prepare the presentation ", { hint: "sc", answer: "script" } ],
+          [ "everything went ", { hint: "sm", answer: "smoothly" } ],
+          [ { hint: "fa", answer: "face" }, " problems" ],
+          "Be busy with other assignments",
+          [ "difficult to ", { hint: "ar", answer: "arrange" }, " meetings" ],
+          "have different opinions about …",
+          [ { hint: "man", answer: "manage" }, " to finish the project on time" ],
+          "the project required many ideas",
+          [ "Require a large amount of work which cannot be done ", { hint: "in", answer: "individually" } ],
+          [ "improve our teamwork and ", { hint: "com", answer: "communication" }, " skills" ],
+        ],
+      },
+    ],
+  },
+  {
+    label: "Part 3",
+    title: "Working in a team — Discussion",
+    questions: [
+      {
+        q: "Why do some people prefer to work by themselves?",
+        lines: [
+          [ { hint: "conc", answer: "concentrate" }, " better" ],
+          [ "make ", { hint: "deci", answer: "decisions" }, " quickly" ],
+          "no need to depend on others",
+          [ "deal with ", { hint: "dis", answer: "disagreements" }, " within a team" ],
+        ],
+      },
+      {
+        q: "Should students learn to do group work?",
+        lines: [
+          [ { hint: "dev", answer: "develop" }, " important skills" ],
+          [ { hint: "Te", answer: "teamwork" }, " skills" ],
+          [ { hint: "Co", answer: "communication" }, " skills" ],
+          [ "problem-", { hint: "", answer: "solving" }, " skills" ],
+          [ "useful not only at school but also in ", { hint: "fu", answer: "future" }, " jobs" ],
+        ],
+      },
+      {
+        q: "What group tasks are there in schools?",
+        lines: [
+          "group activities",
+          "Presentation",
+          "Discussion",
+          [ { hint: "rese", answer: "research" }, " project" ],
+          [ { hint: "Compe", answer: "competition" } ],
+          [ { hint: "co", answer: ["cooperate","co-operate"] }, " and share ideas with each other" ],
+        ],
+      },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Render                                                              */
+/* ------------------------------------------------------------------ */
+const app = document.getElementById("app");
+const inputs = []; // { el, answers, hint }
+
+function normalize(s){
+  return String(s||"").trim().toLowerCase().replace(/[''`]/g,"'").replace(/\s+/g," ");
+}
+
+function renderSegment(seg, container, ctx){
+  if (typeof seg === "string"){
+    container.appendChild(document.createTextNode(seg));
+    return;
+  }
+  const { hint, answer } = seg;
+  const answers = Array.isArray(answer) ? answer : [answer];
+  // Determine width based on longest accepted answer
+  const maxLen = Math.max(...answers.map(a => a.length));
+  const widthPx = Math.max(80, Math.min(220, maxLen * 11 + 20));
+
+  const wrap = document.createElement("span");
+  wrap.className = "blank-wrap";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.autocomplete = "off";
+  input.autocapitalize = "off";
+  input.spellcheck = false;
+  input.className = "blank";
+  input.style.setProperty("--w", widthPx + "px");
+  // Hint as placeholder showing letters + dashes
+  const dashCount = Math.max(2, maxLen - hint.length);
+  input.placeholder = hint + "_".repeat(Math.min(dashCount, 8));
+  input.dataset.hint = hint;
+  input.addEventListener("input", () => {
+    // Clear result class as soon as user edits
+    input.classList.remove("ok","bad");
+    mark.classList.remove("show","ok","bad");
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter"){
+      e.preventDefault();
+      checkAll();
+    }
+  });
+
+  const mark = document.createElement("span");
+  mark.className = "blank-mark";
+
+  wrap.appendChild(input);
+  wrap.appendChild(mark);
+  container.appendChild(wrap);
+
+  inputs.push({
+    el: input,
+    mark,
+    answers: answers.map(normalize),
+    canonical: answers[0],   // for the Answers field
+    hint,
+    partLabel: ctx.partLabel,
+    qIndex: ctx.qIndex,       // 1-based question number within the part
+  });
+}
+
+function renderLine(line, container, ctx){
+  const div = document.createElement("div");
+  div.className = "line";
+  if (typeof line === "string") {
+    div.classList.add("plain");
+    const bullet = document.createElement("span");
+    bullet.className = "bullet";
+    bullet.textContent = "·";
+    div.appendChild(bullet);
+    div.appendChild(document.createTextNode(line));
+  } else {
+    const bullet = document.createElement("span");
+    bullet.className = "bullet";
+    bullet.textContent = "·";
+    div.appendChild(bullet);
+    line.forEach(seg => renderSegment(seg, div, ctx));
+  }
+  container.appendChild(div);
+}
+
+CONTENT.forEach((part, pIdx) => {
+  const section = document.createElement("section");
+  section.className = "part";
+
+  const label = document.createElement("p");
+  label.className = "part-label";
+  label.textContent = part.label;
+  section.appendChild(label);
+
+  const titleEl = document.createElement("h2");
+  titleEl.className = "part-title";
+  titleEl.textContent = part.title;
+
+  const meta = document.createElement("span");
+  meta.className = "section-meta";
+  meta.dataset.section = pIdx;
+  meta.innerHTML = '<b data-score="0">0</b> / <span data-total="0">0</span>';
+  titleEl.appendChild(meta);
+  section.appendChild(titleEl);
+
+  if (part.prompt){
+    const p = document.createElement("p");
+    p.className = "q-text";
+    p.style.fontStyle = "italic";
+    p.style.fontFamily = '"Source Serif 4", Georgia, serif';
+    p.style.fontSize = "19px";
+    p.style.margin = "0 0 6px";
+    p.textContent = part.prompt;
+    section.appendChild(p);
+
+    const yss = document.createElement("p");
+    yss.style.fontFamily = '"IBM Plex Mono", monospace';
+    yss.style.fontSize = "11px";
+    yss.style.letterSpacing = "0.1em";
+    yss.style.textTransform = "uppercase";
+    yss.style.color = "var(--muted)";
+    yss.style.margin = "0 0 6px";
+    yss.textContent = "You should say:";
+    section.appendChild(yss);
+
+    const bullets = document.createElement("div");
+    bullets.className = "p2-bullets";
+    part.bullets.forEach(b => {
+      const d = document.createElement("div");
+      d.textContent = b;
+      bullets.appendChild(d);
+    });
+    section.appendChild(bullets);
+  }
+
+  part.questions.forEach((q, qIdx) => {
+    const qBlock = document.createElement("div");
+    qBlock.className = "question";
+    qBlock.dataset.section = pIdx;
+
+    if (q.q){
+      const head = document.createElement("div");
+      head.className = "q-head";
+      const num = document.createElement("span");
+      num.className = "q-num";
+      num.textContent = (qIdx + 1) + ".";
+      const txt = document.createElement("p");
+      txt.className = "q-text";
+      txt.textContent = q.q;
+      head.appendChild(num);
+      head.appendChild(txt);
+      qBlock.appendChild(head);
+    }
+
+    const prompt = document.createElement("div");
+    prompt.className = "prompt-block";
+    const lines = document.createElement("div");
+    lines.className = "lines";
+    const ctx = { partLabel: part.label, qIndex: qIdx + 1 };
+    q.lines.forEach(line => renderLine(line, lines, ctx));
+    prompt.appendChild(lines);
+    qBlock.appendChild(prompt);
+
+    section.appendChild(qBlock);
+  });
+
+  app.appendChild(section);
+});
+
+/* ------------------------------------------------------------------ */
+/* Check / Reset / Score                                               */
+/* ------------------------------------------------------------------ */
+const btnCheck = document.getElementById("btn-check");
+const btnReset = document.getElementById("btn-reset");
+const scoreNum = document.getElementById("score-num");
+const scoreDots = document.getElementById("score-dots");
+const toast = document.getElementById("toast");
+
+let hasChecked = false;
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+function checkAll(){
+  let correct = 0;
+  const total = inputs.length;
+  // Per-section tallies
+  const partCorrect = {};
+  const partTotal = {};
+
+  // Build a quick index of which section each input belongs to
+  // (walk DOM)
+  const blankElems = document.querySelectorAll(".blank");
+  blankElems.forEach((el, i) => {
+    const section = el.closest(".part");
+    const pIdx = [...document.querySelectorAll(".part")].indexOf(section);
+    partTotal[pIdx] = (partTotal[pIdx] || 0) + 1;
+
+    const rec = inputs[i];
+    const val = normalize(rec.el.value);
+    if (!val){
+      rec.el.classList.remove("ok","bad");
+      rec.mark.classList.remove("show","ok","bad");
+      return;
+    }
+    const ok = rec.answers.includes(val);
+    rec.el.classList.toggle("ok", ok);
+    rec.el.classList.toggle("bad", !ok);
+    rec.mark.classList.add("show");
+    rec.mark.classList.toggle("ok", ok);
+    rec.mark.classList.toggle("bad", !ok);
+    rec.mark.textContent = ok ? "✓" : "✕";
+    if (ok){
+      correct++;
+      partCorrect[pIdx] = (partCorrect[pIdx] || 0) + 1;
+    }
+  });
+
+  scoreNum.textContent = correct + " / " + total;
+
+  // Per-section meta
+  document.querySelectorAll(".section-meta").forEach(meta => {
+    const idx = +meta.dataset.section;
+    const c = partCorrect[idx] || 0;
+    const t = partTotal[idx] || 0;
+    meta.querySelector("[data-score]").textContent = c;
+    meta.querySelector("[data-total]").textContent = t;
+  });
+
+  // Dots
+  scoreDots.innerHTML = "";
+  const dotCount = Math.min(total, 40);
+  // visualize using ratio
+  const filled = Math.round((correct / total) * dotCount);
+  for (let i = 0; i < dotCount; i++){
+    const d = document.createElement("span");
+    d.className = "score-dot " + (i < filled ? "ok" : "");
+    scoreDots.appendChild(d);
+  }
+
+  hasChecked = true;
+  if (correct === total){
+    showToast("All correct — excellent work.");
+  } else {
+    const wrong = total - correct;
+    const empty = [...blankElems].filter(el => !el.value.trim()).length;
+    if (empty > 0 && correct + wrong < total - empty) {
+      showToast(`Checked. ${empty} blank${empty===1?"":"s"} still empty.`);
+    } else {
+      showToast(`Checked. Try the red ones again.`);
+    }
+  }
+}
+
+function resetAll(){
+  inputs.forEach(rec => {
+    rec.el.value = "";
+    rec.el.classList.remove("ok","bad");
+    rec.mark.classList.remove("show","ok","bad");
+  });
+  scoreNum.textContent = "0 / " + inputs.length;
+  scoreDots.innerHTML = "";
+  document.querySelectorAll(".section-meta").forEach(meta => {
+    meta.querySelector("[data-score]").textContent = "0";
+  });
+  hasChecked = false;
+  showToast("Cleared.");
+}
+
+// Initialize totals in section meta
+(function initTotals(){
+  document.querySelectorAll(".part").forEach((section, pIdx) => {
+    const count = section.querySelectorAll(".blank").length;
+    const meta = section.querySelector(".section-meta");
+    if (meta) meta.querySelector("[data-total]").textContent = count;
+  });
+  scoreNum.textContent = "0 / " + inputs.length;
+})();
+
+btnCheck.addEventListener("click", checkAll);
+btnReset.addEventListener("click", resetAll);
+
+/* ------------------------------------------------------------------ */
+/* Start screen — collect Name + Class (required) before practice      */
+/* ------------------------------------------------------------------ */
+const student = { name: "", klass: "" };
+
+const startBack   = document.getElementById("startBack");
+const startBtn    = document.getElementById("startBtn");
+const nameInput   = document.getElementById("studentName");
+const classInput  = document.getElementById("studentClass");
+const startError  = document.getElementById("startError");
+const whoBadge    = document.getElementById("whoBadge");
+const whoNameEl   = document.getElementById("whoName");
+const whoClassEl  = document.getElementById("whoClass");
+const btnSubmit   = document.getElementById("btn-submit");
+
+// Lock the page until the student has entered their info
+document.body.classList.add("locked");
+btnSubmit.disabled = true;
+
+function clearInvalidOnInput(el){
+  el.addEventListener("input", () => {
+    el.classList.remove("invalid");
+    if (!nameInput.classList.contains("invalid") && !classInput.classList.contains("invalid")){
+      startError.textContent = "";
+    }
+  });
+}
+clearInvalidOnInput(nameInput);
+clearInvalidOnInput(classInput);
+
+function beginPractice(){
+  const name  = nameInput.value.trim();
+  const klass = classInput.value.trim();
+
+  nameInput.classList.toggle("invalid", !name);
+  classInput.classList.toggle("invalid", !klass);
+
+  if (!name || !klass){
+    startError.textContent = "Please fill in both your name and class to continue.";
+    (!name ? nameInput : classInput).focus();
+    return;
+  }
+
+  student.name = name;
+  student.klass = klass;
+
+  whoNameEl.textContent = name;
+  whoClassEl.textContent = "Class · " + klass;
+  whoBadge.classList.add("show");
+
+  startBack.classList.add("hide");
+  document.body.classList.remove("locked");
+  btnSubmit.disabled = false;
+
+  // Focus the first blank for a nice flow
+  const firstBlank = document.querySelector(".blank");
+  if (firstBlank) firstBlank.focus();
+}
+
+startBtn.addEventListener("click", beginPractice);
+[nameInput, classInput].forEach(inp => {
+  inp.addEventListener("keydown", e => {
+    if (e.key === "Enter"){ e.preventDefault(); beginPractice(); }
+  });
+});
+window.addEventListener("DOMContentLoaded", () => nameInput.focus());
+
+/* ------------------------------------------------------------------ */
+/* Submit to Google Form                                               */
+/* ------------------------------------------------------------------ */
+const GOOGLE_FORM = {
+  id: "1FAIpQLSfKBiC4Gw_1nycVIJRyy8b0x4dGgTcBo1iQiMzAemXcYyHK5w",
+  fields: {
+    name:    "entry.1648919213",
+    klass:   "entry.877984595",
+    answers: "entry.1986206024",
+    score:   "entry.517719324",
+  },
+};
+
+function buildAnswersString(){
+  // Per-blank lines: "P1Q1: keen ✓"  or  "P1Q1: kean ✗ (hint: k, expected: keen)"  or  "P1Q1: — (empty, hint: k)"
+  const parts = [];
+  let correct = 0;
+  inputs.forEach(rec => {
+    const raw  = rec.el.value.trim();
+    const tag  = (rec.partLabel.replace(/\s+/g, "") || "P?") + "Q" + rec.qIndex;
+    if (!raw){
+      parts.push(tag + ": — (empty, hint: " + rec.hint + ")");
+      return;
+    }
+    const ok = rec.answers.includes(normalize(raw));
+    if (ok){
+      correct++;
+      parts.push(tag + ": " + raw + " ✓");
+    } else {
+      parts.push(tag + ": " + raw + " ✗ (hint: " + rec.hint + ", expected: " + rec.canonical + ")");
+    }
+  });
+  return { text: parts.join(" | "), correct, total: inputs.length };
+}
+
+function submitToGoogleForm(){
+  if (!hasChecked){
+    if (!confirm("You haven't checked your answers yet. Submit anyway?")) return;
+    checkAll();   // grade now so the result is accurate
+  } else {
+    if (!confirm("Submit your result to your teacher? You can keep practising after.")) return;
+  }
+
+  const { text, correct, total } = buildAnswersString();
+  const answersPayload = text + " | [Total: " + correct + "/" + total + "]";
+
+  const action = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM.id + "/formResponse";
+
+  // Build a hidden form and submit it into the offscreen iframe.
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = action;
+  form.target = "gform_sink";
+  form.style.display = "none";
+  form.acceptCharset = "UTF-8";
+
+  const add = (name, value) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value == null ? "" : String(value);
+    form.appendChild(input);
+  };
+
+  add(GOOGLE_FORM.fields.name,    student.name);
+  add(GOOGLE_FORM.fields.klass,   student.klass);
+  add(GOOGLE_FORM.fields.answers, answersPayload);
+  add(GOOGLE_FORM.fields.score,   correct);
+
+  document.body.appendChild(form);
+
+  showToast("Sending your result…");
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = "Sending…";
+
+  const sink = document.getElementById("gformSink");
+  let settled = false;
+  const onDone = () => {
+    if (settled) return;
+    settled = true;
+    sink.removeEventListener("load", onDone);
+    showToast("✓ Result sent to teacher (" + correct + "/" + total + ").");
+    btnSubmit.textContent = "Submitted";
+    form.remove();
+  };
+  sink.addEventListener("load", onDone);
+
+  // Safety net if the iframe never fires `load` (offline, blocked)
+  setTimeout(() => {
+    if (settled) return;
+    settled = true;
+    sink.removeEventListener("load", onDone);
+    showToast("Could not confirm save — please check your connection.");
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = "Submit to teacher";
+  }, 8000);
+
+  try {
+    form.submit();
+  } catch (err){
+    settled = true;
+    showToast("Failed to send: " + err.message);
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = "Submit to teacher";
+    form.remove();
+  }
+}
+
+btnSubmit.addEventListener("click", submitToGoogleForm);
+</script>
+
+
+</body></html>
