@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Speaking Practice — 28/5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --paper: #fbf8f1;
+    --ink: #1b1d1c;
+    --ink-soft: #3d423f;
+    --muted: #7a7a6f;
+    --rule: #d9d2c2;
+    --rule-soft: #e7e1d2;
+    --accent: #2f5d50;
+    --accent-soft: #cfdfd8;
+    --ok: #2f5d50;
+    --ok-bg: #d8e8de;
+    --bad: #a43a2b;
+    --bad-bg: #f0d6cf;
+    --warn: #9a7b1e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 28px 160px;
+  }
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+  .masthead .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .masthead h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(28px, 4.4vw, 40px);
+    line-height: 1.08;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .masthead .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .intro {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 44px;
+  }
+  .intro b { color: var(--ink); font-weight: 600; }
+
+  .part {
+    margin-top: 56px;
+  }
+  .part-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  .part-title {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0 0 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.01em;
+  }
+
+  .question {
+    margin: 0 0 34px;
+    padding: 0;
+  }
+  .q-head {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    margin: 0 0 14px;
+  }
+  .q-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 24px;
+  }
+  .q-text {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0;
+  }
+  .prompt-block {
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+    padding: 18px 22px 20px 26px;
+    position: relative;
+  }
+  .prompt-block::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 4px 0 0 4px;
+    opacity: 0.55;
+  }
+  .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3em;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .line.plain { color: var(--muted); }
+  .line .bullet {
+    color: var(--rule);
+    margin-right: 4px;
+  }
+
+  /* Inputs */
+  .blank-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  .blank {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+    border-radius: 3px;
+    padding: 3px 8px 2px;
+    min-width: 90px;
+    width: var(--w, 90px);
+    outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .blank:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .blank::placeholder {
+    color: var(--muted);
+    font-weight: 400;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  /* Result states — color the field but never expose the answer */
+  .blank.ok {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+  .blank.bad {
+    border-color: var(--bad);
+    background: var(--bad-bg);
+    color: var(--bad);
+  }
+  .blank.ok:focus, .blank.bad:focus {
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+  }
+  .blank-mark {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 14px;
+    font-size: 11px;
+    border-radius: 50%;
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    opacity: 0;
+    transform: translateY(-1px);
+    transition: opacity .2s;
+  }
+  .blank-mark.show { opacity: 1; }
+  .blank-mark.ok { background: var(--ok); }
+  .blank-mark.bad { background: var(--bad); }
+
+  /* Status bar */
+  .statusbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(251, 248, 241, 0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-top: 1px solid var(--rule);
+    z-index: 50;
+  }
+  .statusbar-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .score {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .score b {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+  .score-dots {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .score-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+  .score-dot.ok { background: var(--ok); }
+  .score-dot.bad { background: var(--bad); }
+  .spacer { flex: 1; }
+  button.btn {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: 3px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: transform .08s, background .15s;
+  }
+  button.btn:hover { background: #000; }
+  button.btn:active { transform: translateY(1px); }
+  button.btn.ghost {
+    background: transparent;
+    color: var(--ink);
+  }
+  button.btn.ghost:hover { background: rgba(0,0,0,0.04); }
+
+  /* Section score chip */
+  .section-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-left: 14px;
+    vertical-align: middle;
+  }
+  .section-meta b { color: var(--ink); font-weight: 600; }
+
+  /* P2 bullet list */
+  .p2-bullets {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin: -6px 0 18px;
+    padding-left: 14px;
+    border-left: 2px solid var(--rule-soft);
+  }
+  .p2-bullets div { margin: 2px 0; }
+  .p2-bullets div::before {
+    content: "— ";
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* Confirmation toast */
+  .toast {
+    position: fixed;
+    bottom: 88px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 60;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 560px) {
+    .page { padding: 32px 18px 160px; }
+    .masthead { grid-template-columns: 1fr; }
+    .masthead .meta { text-align: left; }
+    .statusbar-inner { padding: 10px 18px; }
+  }
+
+  /* Student info gate */
+  .gate-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 29, 28, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .gate-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    max-width: 440px;
+    width: 100%;
+    padding: 36px 34px 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  }
+  .gate-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  .gate-title {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: 26px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .gate-sub {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 24px;
+  }
+  .gate-field {
+    display: block;
+    margin-bottom: 16px;
+  }
+  .gate-field label {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .gate-field input {
+    width: 100%;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+    border-radius: 3px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .gate-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .gate-field input.error {
+    border-color: var(--bad);
+    background: var(--bad-bg);
+  }
+  .gate-error {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--bad);
+    margin: -10px 0 12px;
+    min-height: 14px;
+  }
+  .gate-actions {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .gate-card button.btn { width: 100%; padding: 12px 18px; }
+
+  /* Student badge in masthead */
+  .student-badge {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .student-badge b {
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+  }
+
+  /* Submit status */
+  .submit-status {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 6px;
+  }
+  .submit-status.ok { color: var(--ok); }
+  .submit-status.bad { color: var(--bad); }
+</style>
+</head>
+<body>
+<div class="gate-backdrop" id="gate">
+  <div class="gate-card">
+    <p class="gate-eyebrow">Before you begin</p>
+    <h2 class="gate-title">Student information</h2>
+    <p class="gate-sub">Please enter your name and class so your results can be recorded.</p>
+    <div class="gate-field">
+      <label for="gate-name">Full name</label>
+      <input id="gate-name" type="text" autocomplete="name" placeholder="e.g. Nguyen Van A" />
+    </div>
+    <div class="gate-field">
+      <label for="gate-class">Class</label>
+      <input id="gate-class" type="text" autocomplete="off" placeholder="e.g. 10A1" />
+    </div>
+    <div class="gate-error" id="gate-error"></div>
+    <div class="gate-actions">
+      <button class="btn" id="gate-start">Start practice</button>
+    </div>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail" data-bg-color="#f6f2ea">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f6f2ea"/>
+    <rect x="180" y="170" width="3" height="460" fill="#2f5d50" opacity="0.55"/>
+    <rect x="220" y="190" width="640" height="14" rx="3" fill="#1b1d1c" opacity="0.7"/>
+    <rect x="220" y="230" width="420" height="10" rx="3" fill="#3d423f" opacity="0.55"/>
+    <rect x="220" y="290" width="180" height="40" rx="4" fill="#fff" stroke="#1b1d1c" stroke-width="2"/>
+    <rect x="220" y="360" width="120" height="40" rx="4" fill="#d8e8de" stroke="#2f5d50" stroke-width="2"/>
+    <rect x="360" y="360" width="160" height="40" rx="4" fill="#f0d6cf" stroke="#a43a2b" stroke-width="2"/>
+    <rect x="220" y="430" width="240" height="40" rx="4" fill="#fff" stroke="#1b1d1c" stroke-width="2"/>
+    <circle cx="940" cy="380" r="44" fill="#2f5d50"/>
+    <path d="M918 380 l16 16 l30 -34" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</template>
+
+<div class="page">
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">IELTS Speaking · Lesson Drill</p>
+      <h1>Speaking Practice — Vocabulary in Context</h1>
+      <p class="student-badge" id="student-badge" style="display:none;">
+        <b id="student-name-display"></b> · <span id="student-class-display"></span>
+      </p>
+    </div>
+    <div class="meta">
+      Lesson · 28 / 05<br/>
+      Parts 1 — 2 — 3
+    </div>
+  </header>
+
+  <p class="intro">
+    Fill in each blank with the missing word. The first letter (or letters) are given as a hint.
+    When you're done, press <b>Check answers</b> — correct blanks turn green, incorrect ones turn red.
+    The correct words are not shown; rework the red ones and check again.
+  </p>
+
+  <div id="app"></div>
+</div>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="score">
+      Score
+      <b id="score-num">0 / 0</b>
+      <span class="score-dots" id="score-dots"></span>
+    </div>
+    <div class="spacer"></div>
+    <span class="submit-status" id="submit-status"></span>
+    <button class="btn ghost" id="btn-reset">Reset</button>
+    <button class="btn" id="btn-check">Check answers</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+/* Each "line" is either a plain string (no blank) or an array of      */
+/* segments where each segment is either a string or { hint, answer }. */
+/* `answer` accepts a string or an array of acceptable answers.        */
+
+const CONTENT = [
+  {
+    label: "Part 1",
+    title: "Social media",
+    questions: [
+      {
+        q: "Have you ever posted anything on social media?",
+        lines: [
+          [ "post photos of my ", { hint: "da", answer: "daily" }, " life" ],
+          [ { hint: "ha", answer: "hang" }, " out with friends" ],
+          "Go on holiday",
+          [ "special ", { hint: "occa", answer: ["occasions","occasion"] } ],
+          [ { hint: "mem", answer: "memorable" }, " moments" ],
+          [ "beautiful ", { hint: "scen", answer: "scenery" } ],
+          "share my thoughts",
+          [ "Keep in ", { hint: "", answer: "touch" }, " with my friends through social media" ],
+          [ "stay ", { hint: "con", answer: "connected" }, " with my friends through social media" ],
+        ],
+      },
+      {
+        q: "When did you start using social media?",
+        lines: [
+          [ "during ", { hint: "sec", answer: "secondary" }, " school" ],
+          "most of my friends were using social media",
+          [ "have social media ", { hint: "acc", answer: "accounts" } ],
+          [ "become ", { hint: "curi", answer: "curious" } ],
+          "join my friends",
+          "chat with friends",
+          [ "stay ", { hint: "conn", answer: "connected" }, " with friends" ],
+          "share photos",
+        ],
+      },
+      {
+        q: "Do you think you spend too much time on social media?",
+        lines: [
+          "Use social media in my free time",
+          "spend time on social media",
+          [ "check social media ", { hint: "seve", answer: "several" }, " times a day" ],
+          "read posts",
+          "watch short videos",
+          [ { hint: "scr", answer: "scroll" }, " through my feed" ],
+          "chat with friends",
+          [ { hint: "man", answer: "manage" }, " my screen time better" ],
+          "focus on studying",
+          [ { hint: "dist", answer: "distract" }, " and affect ", { hint: "produc", answer: "productivity" } ],
+          [ { hint: "lim", answer: "limit" }, " the time I spend on social media" ],
+        ],
+      },
+      {
+        q: "Do your friends use social media?",
+        lines: [
+          [ "use social media ", { hint: "regu", answer: "regularly" } ],
+          "chat with friends",
+          [ "share ", { hint: "upd", answer: "updates" } ],
+          "send each other funny videos",
+          [ "keep up with the ", { hint: "lat", answer: "latest" }, " trends" ],
+          [ "stay in ", { hint: "to", answer: "touch" } ],
+          "become part of daily life",
+          [ "a way to ", { hint: "main", answer: "maintain" }, " friendships" ],
+        ],
+      },
+      {
+        q: "What do people often do on social media?",
+        lines: [
+          [ "social media ", { hint: "plat", answer: "platforms" } ],
+          "watch videos",
+          "chat with friends",
+          "post photos about their lives",
+          [ "follow ", { hint: "tre", answer: "trends" } ],
+          "do business online",
+          [ "sell ", { hint: "prod", answer: "products" }, " online" ],
+          [ "share daily ", { hint: "activ", answer: "activities" } ],
+        ],
+      },
+    ],
+  },
+  {
+    label: "Part 2",
+    title: "A plan you had to change",
+    prompt: "Describe a plan that you had to change recently",
+    bullets: [
+      "When this happened",
+      "What made you change the plan",
+      "What the new plan was",
+      "And how you felt about the change",
+    ],
+    questions: [
+      {
+        q: null,
+        lines: [
+          "change a travel plan",
+          "a few months ago",
+          "plan to go to Da Lat during a short holiday",
+          [ "relax after a stressful ", { hint: "pe", answer: "period" }, " of studying" ],
+          [ "discuss the ", { hint: "sch", answer: "schedule" } ],
+          "book a hotel",
+          [ "prepare everything in ", { hint: "ad", answer: "advance" } ],
+          "a few days before the trip",
+          [ { hint: "sud", answer: "suddenly" }, " become sick" ],
+          "cancel the trip",
+          "change our plan",
+          "spend time together in Ho Chi Minh City",
+          "go to a café, watch a movie, and have dinner together",
+          [ "have a ", { hint: "gr", answer: "great" }, " time" ],
+          [ "a bit ", { hint: "disa", answer: "disappointed" }, " at first" ],
+          [ "look ", { hint: "fo", answer: "forward" }, " to the trip for weeks" ],
+          [ "spending time with friends is more ", { hint: "impor", answer: "important" } ],
+          "enjoy the experience",
+          [ { hint: "memo", answer: "memorable" }, " experience" ],
+        ],
+      },
+    ],
+  },
+  {
+    label: "Part 3",
+    title: "Plans — Discussion",
+    questions: [
+      {
+        q: "Do people often change their plans?",
+        lines: [
+          [ "Happen ", { hint: "freq", answer: "frequently" } ],
+          "Be busy with work, study",
+          [ { hint: "une", answer: "unexpected" }, " situations" ],
+          [ { hint: "adj", answer: "adjust" }, " their schedules" ],
+          [ { hint: "flex", answer: "flexible" } ],
+        ],
+      },
+      {
+        q: "Would you tell others if you change your plan?",
+        lines: [
+          [ "the plan ", { hint: "invo", answer: "involves" }, " other people" ],
+          [ { hint: "inf", answer: "inform" }, " others early" ],
+          [ "show ", { hint: "res", answer: "respect" } ],
+          [ "help them make other ", { hint: "arran", answer: "arrangements" } ],
+          [ "create ", { hint: "inconv", answer: "inconvenience" } ],
+        ],
+      },
+      {
+        q: "Why do you think parents still make plans for their children nowadays?",
+        lines: [
+          "want the best for their children",
+          [ { hint: "gui", answer: "guide" }, " children from an early age" ],
+          [ "plan their children's education or future ", { hint: "ca", answer: "career" } ],
+          [ "have a ", { hint: "sta", answer: "stable" }, " and successful life" ],
+        ],
+      },
+      {
+        q: "How does technology help people make plans?",
+        lines: [
+          "make planning easier and faster",
+          [ "organize ", { hint: "sche", answer: "schedules" } ],
+          "book tickets",
+          [ "set ", { hint: "remi", answer: "reminders" } ],
+          [ "communicate with others ", { hint: "inst", answer: "instantly" } ],
+          [ "manage time ", { hint: "effec", answer: "effectively" } ],
+        ],
+      },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Render                                                              */
+/* ------------------------------------------------------------------ */
+const app = document.getElementById("app");
+const inputs = []; // { el, answers, hint }
+
+function normalize(s){
+  return String(s||"").trim().toLowerCase().replace(/[''`]/g,"'").replace(/\s+/g," ");
+}
+
+function renderSegment(seg, container){
+  if (typeof seg === "string"){
+    container.appendChild(document.createTextNode(seg));
+    return;
+  }
+  const { hint, answer } = seg;
+  const answers = Array.isArray(answer) ? answer : [answer];
+  // Determine width based on longest accepted answer
+  const maxLen = Math.max(...answers.map(a => a.length));
+  const widthPx = Math.max(80, Math.min(220, maxLen * 11 + 20));
+
+  const wrap = document.createElement("span");
+  wrap.className = "blank-wrap";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.autocomplete = "off";
+  input.autocapitalize = "off";
+  input.spellcheck = false;
+  input.className = "blank";
+  input.style.setProperty("--w", widthPx + "px");
+  // Hint as placeholder showing letters + dashes
+  const dashCount = Math.max(2, maxLen - hint.length);
+  input.placeholder = hint + "_".repeat(Math.min(dashCount, 8));
+  input.dataset.hint = hint;
+  input.addEventListener("input", () => {
+    // Clear result class as soon as user edits
+    input.classList.remove("ok","bad");
+    mark.classList.remove("show","ok","bad");
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter"){
+      e.preventDefault();
+      checkAll();
+    }
+  });
+
+  const mark = document.createElement("span");
+  mark.className = "blank-mark";
+
+  wrap.appendChild(input);
+  wrap.appendChild(mark);
+  container.appendChild(wrap);
+
+  inputs.push({ el: input, mark, answers: answers.map(normalize), hint });
+}
+
+function renderLine(line, container){
+  const div = document.createElement("div");
+  div.className = "line";
+  if (typeof line === "string") {
+    div.classList.add("plain");
+    const bullet = document.createElement("span");
+    bullet.className = "bullet";
+    bullet.textContent = "·";
+    div.appendChild(bullet);
+    div.appendChild(document.createTextNode(line));
+  } else {
+    const bullet = document.createElement("span");
+    bullet.className = "bullet";
+    bullet.textContent = "·";
+    div.appendChild(bullet);
+    line.forEach(seg => renderSegment(seg, div));
+  }
+  container.appendChild(div);
+}
+
+CONTENT.forEach((part, pIdx) => {
+  const section = document.createElement("section");
+  section.className = "part";
+
+  const label = document.createElement("p");
+  label.className = "part-label";
+  label.textContent = part.label;
+  section.appendChild(label);
+
+  const titleEl = document.createElement("h2");
+  titleEl.className = "part-title";
+  titleEl.textContent = part.title;
+
+  const meta = document.createElement("span");
+  meta.className = "section-meta";
+  meta.dataset.section = pIdx;
+  meta.innerHTML = '<b data-score="0">0</b> / <span data-total="0">0</span>';
+  titleEl.appendChild(meta);
+  section.appendChild(titleEl);
+
+  if (part.prompt){
+    const p = document.createElement("p");
+    p.className = "q-text";
+    p.style.fontStyle = "italic";
+    p.style.fontFamily = '"Source Serif 4", Georgia, serif';
+    p.style.fontSize = "19px";
+    p.style.margin = "0 0 6px";
+    p.textContent = part.prompt;
+    section.appendChild(p);
+
+    const yss = document.createElement("p");
+    yss.style.fontFamily = '"IBM Plex Mono", monospace';
+    yss.style.fontSize = "11px";
+    yss.style.letterSpacing = "0.1em";
+    yss.style.textTransform = "uppercase";
+    yss.style.color = "var(--muted)";
+    yss.style.margin = "0 0 6px";
+    yss.textContent = "You should say:";
+    section.appendChild(yss);
+
+    const bullets = document.createElement("div");
+    bullets.className = "p2-bullets";
+    part.bullets.forEach(b => {
+      const d = document.createElement("div");
+      d.textContent = b;
+      bullets.appendChild(d);
+    });
+    section.appendChild(bullets);
+  }
+
+  part.questions.forEach((q, qIdx) => {
+    const qBlock = document.createElement("div");
+    qBlock.className = "question";
+    qBlock.dataset.section = pIdx;
+
+    if (q.q){
+      const head = document.createElement("div");
+      head.className = "q-head";
+      const num = document.createElement("span");
+      num.className = "q-num";
+      num.textContent = (qIdx + 1) + ".";
+      const txt = document.createElement("p");
+      txt.className = "q-text";
+      txt.textContent = q.q;
+      head.appendChild(num);
+      head.appendChild(txt);
+      qBlock.appendChild(head);
+    }
+
+    const prompt = document.createElement("div");
+    prompt.className = "prompt-block";
+    const lines = document.createElement("div");
+    lines.className = "lines";
+    q.lines.forEach(line => renderLine(line, lines));
+    prompt.appendChild(lines);
+    qBlock.appendChild(prompt);
+
+    section.appendChild(qBlock);
+  });
+
+  app.appendChild(section);
+});
+
+/* ------------------------------------------------------------------ */
+/* Check / Reset / Score                                               */
+/* ------------------------------------------------------------------ */
+const btnCheck = document.getElementById("btn-check");
+const btnReset = document.getElementById("btn-reset");
+const scoreNum = document.getElementById("score-num");
+const scoreDots = document.getElementById("score-dots");
+const toast = document.getElementById("toast");
+
+let hasChecked = false;
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+function checkAll(){
+  let correct = 0;
+  const total = inputs.length;
+  // Per-section tallies
+  const partCorrect = {};
+  const partTotal = {};
+
+  // Build a quick index of which section each input belongs to
+  // (walk DOM)
+  const blankElems = document.querySelectorAll(".blank");
+  blankElems.forEach((el, i) => {
+    const section = el.closest(".part");
+    const pIdx = [...document.querySelectorAll(".part")].indexOf(section);
+    partTotal[pIdx] = (partTotal[pIdx] || 0) + 1;
+
+    const rec = inputs[i];
+    const val = normalize(rec.el.value);
+    if (!val){
+      rec.el.classList.remove("ok","bad");
+      rec.mark.classList.remove("show","ok","bad");
+      return;
+    }
+    const ok = rec.answers.includes(val);
+    rec.el.classList.toggle("ok", ok);
+    rec.el.classList.toggle("bad", !ok);
+    rec.mark.classList.add("show");
+    rec.mark.classList.toggle("ok", ok);
+    rec.mark.classList.toggle("bad", !ok);
+    rec.mark.textContent = ok ? "✓" : "✕";
+    if (ok){
+      correct++;
+      partCorrect[pIdx] = (partCorrect[pIdx] || 0) + 1;
+    }
+  });
+
+  scoreNum.textContent = correct + " / " + total;
+
+  // Per-section meta
+  document.querySelectorAll(".section-meta").forEach(meta => {
+    const idx = +meta.dataset.section;
+    const c = partCorrect[idx] || 0;
+    const t = partTotal[idx] || 0;
+    meta.querySelector("[data-score]").textContent = c;
+    meta.querySelector("[data-total]").textContent = t;
+  });
+
+  // Dots
+  scoreDots.innerHTML = "";
+  const dotCount = Math.min(total, 40);
+  // visualize using ratio
+  const filled = Math.round((correct / total) * dotCount);
+  for (let i = 0; i < dotCount; i++){
+    const d = document.createElement("span");
+    d.className = "score-dot " + (i < filled ? "ok" : "");
+    scoreDots.appendChild(d);
+  }
+
+  hasChecked = true;
+  if (correct === total){
+    showToast("All correct — excellent work.");
+  } else {
+    const wrong = total - correct;
+    const empty = [...blankElems].filter(el => !el.value.trim()).length;
+    if (empty > 0 && correct + wrong < total - empty) {
+      showToast(`Checked. ${empty} blank${empty===1?"":"s"} still empty.`);
+    } else {
+      showToast(`Checked. Try the red ones again.`);
+    }
+  }
+}
+
+function resetAll(){
+  inputs.forEach(rec => {
+    rec.el.value = "";
+    rec.el.classList.remove("ok","bad");
+    rec.mark.classList.remove("show","ok","bad");
+  });
+  scoreNum.textContent = "0 / " + inputs.length;
+  scoreDots.innerHTML = "";
+  document.querySelectorAll(".section-meta").forEach(meta => {
+    meta.querySelector("[data-score]").textContent = "0";
+  });
+  hasChecked = false;
+  showToast("Cleared.");
+}
+
+// Initialize totals in section meta
+(function initTotals(){
+  document.querySelectorAll(".part").forEach((section, pIdx) => {
+    const count = section.querySelectorAll(".blank").length;
+    const meta = section.querySelector(".section-meta");
+    if (meta) meta.querySelector("[data-total]").textContent = count;
+  });
+  scoreNum.textContent = "0 / " + inputs.length;
+})();
+
+btnReset.addEventListener("click", resetAll);
+
+/* ------------------------------------------------------------------ */
+/* Student info gate + Google Form submission                          */
+/* ------------------------------------------------------------------ */
+const GOOGLE_FORM_ID = "1FAIpQLSetOGyspGwVNs-UTQLmsDWYjDY7SRp2Uvq5OK12-b7U3NZFAA";
+const FORM_FIELDS = {
+  name:    "entry.78705490",
+  class_:  "entry.874827097",
+  answers: "entry.394705384",
+  score:   "entry.133306827",
+};
+
+const student = { name: "", class_: "" };
+
+const gate = document.getElementById("gate");
+const gateName = document.getElementById("gate-name");
+const gateClass = document.getElementById("gate-class");
+const gateError = document.getElementById("gate-error");
+const gateStart = document.getElementById("gate-start");
+const studentBadge = document.getElementById("student-badge");
+const studentNameDisplay = document.getElementById("student-name-display");
+const studentClassDisplay = document.getElementById("student-class-display");
+const submitStatus = document.getElementById("submit-status");
+
+// Disable check button until the gate is passed
+btnCheck.disabled = true;
+btnCheck.style.opacity = "0.5";
+btnCheck.style.cursor = "not-allowed";
+
+function clearGateError(){
+  gateError.textContent = "";
+  gateName.classList.remove("error");
+  gateClass.classList.remove("error");
+}
+gateName.addEventListener("input", clearGateError);
+gateClass.addEventListener("input", clearGateError);
+gateName.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); gateClass.focus(); } });
+gateClass.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); gateStart.click(); } });
+
+gateStart.addEventListener("click", () => {
+  const name = gateName.value.trim();
+  const cls = gateClass.value.trim();
+  if (!name || !cls){
+    gateError.textContent = "Both name and class are required.";
+    if (!name) gateName.classList.add("error");
+    if (!cls)  gateClass.classList.add("error");
+    (!name ? gateName : gateClass).focus();
+    return;
+  }
+  student.name = name;
+  student.class_ = cls;
+  studentNameDisplay.textContent = name;
+  studentClassDisplay.textContent = cls;
+  studentBadge.style.display = "";
+  gate.style.display = "none";
+  btnCheck.disabled = false;
+  btnCheck.style.opacity = "";
+  btnCheck.style.cursor = "";
+  // Move focus to first blank for convenience
+  const firstBlank = document.querySelector(".blank");
+  if (firstBlank) firstBlank.focus();
+});
+
+// Focus the name field on load
+setTimeout(() => gateName.focus(), 50);
+
+/* ----- Collect answers payload ----- */
+function collectAnswersPayload(){
+  // Walk the DOM in document order so the output mirrors the on-screen layout.
+  const lines = [];
+  document.querySelectorAll(".part").forEach(section => {
+    const partTitle =
+      (section.querySelector(".part-label")?.textContent || "").trim() +
+      " — " +
+      (section.querySelector(".part-title")?.firstChild?.textContent || "").trim();
+    lines.push("");
+    lines.push("=== " + partTitle + " ===");
+
+    section.querySelectorAll(".question").forEach((qBlock, qi) => {
+      const qText = qBlock.querySelector(".q-text")?.textContent?.trim();
+      if (qText) lines.push(`Q${qi + 1}. ${qText}`);
+
+      qBlock.querySelectorAll(".line").forEach(lineEl => {
+        // Reconstruct the line text, replacing each input with its value (or "____")
+        let text = "";
+        lineEl.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE){
+            text += node.textContent;
+          } else if (node.classList && node.classList.contains("bullet")){
+            text += "· ";
+          } else if (node.classList && node.classList.contains("blank-wrap")){
+            const input = node.querySelector(".blank");
+            const val = (input?.value || "").trim();
+            const ok = input?.classList.contains("ok");
+            const bad = input?.classList.contains("bad");
+            const tag = val ? (ok ? "✓" : bad ? "✗" : "·") : "·";
+            text += `[${val || "____"} ${tag}]`;
+          } else {
+            text += node.textContent || "";
+          }
+        });
+        lines.push(text.replace(/\s+/g, " ").trim());
+      });
+    });
+  });
+  return lines.join("\n").trim();
+}
+
+/* ----- Submit to Google Form ----- */
+function submitToGoogleForm(correct, total){
+  const url = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`;
+  const fd = new FormData();
+  fd.append(FORM_FIELDS.name, student.name);
+  fd.append(FORM_FIELDS.class_, student.class_);
+  fd.append(FORM_FIELDS.answers, collectAnswersPayload());
+  fd.append(FORM_FIELDS.score, `${correct} / ${total}`);
+
+  submitStatus.textContent = "Submitting…";
+  submitStatus.classList.remove("ok", "bad");
+
+  // Google Forms doesn't return CORS-friendly responses, so we use no-cors
+  // and treat completion of the fetch as success. The form will still record the entry.
+  fetch(url, {
+    method: "POST",
+    mode: "no-cors",
+    body: fd,
+  }).then(() => {
+    submitStatus.textContent = "Submitted ✓";
+    submitStatus.classList.add("ok");
+    setTimeout(() => { submitStatus.textContent = ""; submitStatus.classList.remove("ok"); }, 4000);
+  }).catch(() => {
+    submitStatus.textContent = "Submit failed";
+    submitStatus.classList.add("bad");
+  });
+}
+
+// Hook into checkAll: after the original check runs, send results to Google Form
+btnCheck.addEventListener("click", () => {
+  checkAll();
+  const m = scoreNum.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+  if (m) submitToGoogleForm(parseInt(m[1], 10), parseInt(m[2], 10));
+});
+</script>
+</body>
+</html>
