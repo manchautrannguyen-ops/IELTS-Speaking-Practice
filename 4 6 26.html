@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Speaking Practice — 4/6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --paper: #fbf8f1;
+    --ink: #1b1d1c;
+    --ink-soft: #3d423f;
+    --muted: #7a7a6f;
+    --rule: #d9d2c2;
+    --rule-soft: #e7e1d2;
+    --accent: #2f5d50;
+    --accent-soft: #cfdfd8;
+    --ok: #2f5d50;
+    --ok-bg: #d8e8de;
+    --bad: #a43a2b;
+    --bad-bg: #f0d6cf;
+    --warn: #9a7b1e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 28px 160px;
+  }
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+  }
+  .masthead .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .masthead h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(28px, 4.4vw, 40px);
+    line-height: 1.08;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .masthead .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .intro {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 44px;
+  }
+  .intro b { color: var(--ink); font-weight: 600; }
+
+  .part {
+    margin-top: 56px;
+  }
+  .part-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  .part-title {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0 0 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.01em;
+  }
+
+  .question {
+    margin: 0 0 34px;
+    padding: 0;
+  }
+  .q-head {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    margin: 0 0 14px;
+  }
+  .q-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 24px;
+  }
+  .q-text {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0;
+  }
+  .prompt-block {
+    background: var(--paper);
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+    padding: 18px 22px 20px 26px;
+    position: relative;
+  }
+  .prompt-block::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 4px 0 0 4px;
+    opacity: 0.55;
+  }
+  .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3em;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .line.plain { color: var(--muted); }
+  .line .bullet {
+    color: var(--rule);
+    margin-right: 4px;
+  }
+
+  /* Inputs */
+  .blank-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  .blank {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+    border-radius: 3px;
+    padding: 3px 8px 2px;
+    min-width: 90px;
+    width: var(--w, 90px);
+    outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .blank:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .blank::placeholder {
+    color: var(--muted);
+    font-weight: 400;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  /* Result states — color the field but never expose the answer */
+  .blank.ok {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+  .blank.bad {
+    border-color: var(--bad);
+    background: var(--bad-bg);
+    color: var(--bad);
+  }
+  .blank.ok:focus, .blank.bad:focus {
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+  }
+  .blank-mark {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 14px;
+    font-size: 11px;
+    border-radius: 50%;
+    color: #fff;
+    font-family: "IBM Plex Mono", monospace;
+    opacity: 0;
+    transform: translateY(-1px);
+    transition: opacity .2s;
+  }
+  .blank-mark.show { opacity: 1; }
+  .blank-mark.ok { background: var(--ok); }
+  .blank-mark.bad { background: var(--bad); }
+
+  /* Status bar */
+  .statusbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(251, 248, 241, 0.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-top: 1px solid var(--rule);
+    z-index: 50;
+  }
+  .statusbar-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .score {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .score b {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+  .score-dots {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .score-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+  }
+  .score-dot.ok { background: var(--ok); }
+  .score-dot.bad { background: var(--bad); }
+  .spacer { flex: 1; }
+  button.btn {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: 3px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: transform .08s, background .15s;
+  }
+  button.btn:hover { background: #000; }
+  button.btn:active { transform: translateY(1px); }
+  button.btn.ghost {
+    background: transparent;
+    color: var(--ink);
+  }
+  button.btn.ghost:hover { background: rgba(0,0,0,0.04); }
+
+  /* Section score chip */
+  .section-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-left: 14px;
+    vertical-align: middle;
+  }
+  .section-meta b { color: var(--ink); font-weight: 600; }
+
+  /* P2 bullet list */
+  .p2-bullets {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin: -6px 0 18px;
+    padding-left: 14px;
+    border-left: 2px solid var(--rule-soft);
+  }
+  .p2-bullets div { margin: 2px 0; }
+  .p2-bullets div::before {
+    content: "— ";
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* Confirmation toast */
+  .toast {
+    position: fixed;
+    bottom: 88px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 60;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 560px) {
+    .page { padding: 32px 18px 160px; }
+    .masthead { grid-template-columns: 1fr; }
+    .masthead .meta { text-align: left; }
+    .statusbar-inner { padding: 10px 18px; }
+  }
+
+  /* Student-info gate (shown before the test starts) */
+  .gate-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 29, 28, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .gate-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 32px 32px 28px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  }
+  .gate-card .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  .gate-card h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .gate-card .gate-sub {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+  }
+  .gate-field { margin-bottom: 16px; }
+  .gate-field label {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .gate-field label .req { color: var(--bad); margin-left: 2px; }
+  .gate-field input {
+    width: 100%;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+    border-radius: 3px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .gate-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .gate-field input.invalid {
+    border-color: var(--bad);
+    background: var(--bad-bg);
+  }
+  .gate-error {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 13px;
+    color: var(--bad);
+    margin: 0 0 14px;
+    min-height: 18px;
+  }
+  .gate-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+  /* Identity badge shown in the masthead once started */
+  .student-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .student-tag b { color: var(--ink); font-weight: 600; }
+  /* Submit state on status bar */
+  button.btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+
+<!-- Student-info gate: must enter Name + Class before starting the test -->
+<div class="gate-overlay" id="gate-overlay" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <p class="eyebrow">Before you begin</p>
+    <h2 id="gate-title">Student information</h2>
+    <p class="gate-sub">Please enter your name and class to start the practice.</p>
+    <div class="gate-field">
+      <label for="gate-name">Name<span class="req">*</span></label>
+      <input type="text" id="gate-name" autocomplete="name" spellcheck="false" />
+    </div>
+    <div class="gate-field">
+      <label for="gate-class">Class<span class="req">*</span></label>
+      <input type="text" id="gate-class" autocomplete="off" spellcheck="false" />
+    </div>
+    <p class="gate-error" id="gate-error"></p>
+    <div class="gate-actions">
+      <button class="btn" id="gate-start">Start practice</button>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">IELTS Speaking · Lesson Drill</p>
+      <h1>Speaking Practice — Vocabulary in Context</h1>
+    </div>
+    <div class="meta">
+      Lesson · 4 / 06<br/>
+      Parts 1 — 2 — 3
+    </div>
+  </header>
+
+  <p class="intro">
+    Fill in each blank with the missing word. The first letter (or letters) are given as a hint.
+    When you're done, press <b>Check answers</b> — correct blanks turn green, incorrect ones turn red.
+    The correct words are not shown; rework the red ones and check again.
+  </p>
+
+  <div id="app"></div>
+</div>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="score">
+      Score
+      <b id="score-num">0 / 0</b>
+      <span class="score-dots" id="score-dots"></span>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn ghost" id="btn-reset">Reset</button>
+    <button class="btn" id="btn-check">Check answers</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+/* Each "line" is either a plain string (no blank) or an array of      */
+/* segments where each segment is either a string or { hint, answer }. */
+/* `answer` accepts a string or an array of acceptable answers.        */
+
+const CONTENT = [
+  {
+    label: "Part 1",
+    title: "Parks",
+    questions: [
+      {
+        q: "Did you like going to parks as a child?",
+        lines: [
+          "Love going to parks",
+          [ { hint: "ri", answer: "ride" }, " a bicycle" ],
+          "eat snacks",
+          [ "have ", { hint: "", answer: "fun" }, " with friends" ],
+          [ "family ", { hint: "out", answer: "outings" } ],
+          "enjoy fresh air",
+          [ "childhood ", { hint: "mem", answer: "memories" } ],
+        ],
+      },
+      {
+        q: "Do you still like going to parks now?",
+        lines: [
+          [ "Be busy ", { hint: "", answer: "with" }, " studying" ],
+          "go to parks to relax",
+          [ "walk around (", { hint: "", answer: "take" }, " a walk) and get some fresh air" ],
+          [ "after a ", { hint: "s", answer: "stressful" }, " day" ],
+          "reduce stress",
+          [ "peaceful ", { hint: "at", answer: "atmosphere" } ],
+          [ { hint: "cl", answer: "clear" }, " my mind" ],
+        ],
+      },
+      {
+        q: "Would you like to see more parks in your city?",
+        lines: [
+          [ "provide green ", { hint: "sp", answer: "spaces" } ],
+          "provide a place where people can",
+          [ { hint: "con", answer: "connect" }, " with nature" ],
+          "after busy days of work or study",
+          [ "lots of buildings and heavy ", { hint: "tra", answer: "traffic" } ],
+          [ "improve air ", { hint: "qua", answer: "quality" } ],
+          [ "create a more ", { hint: "pea", answer: "peaceful" }, " ", { hint: "atm", answer: "atmosphere" } ],
+          [ "improve people's ", { hint: "qu", answer: "quality" }, " of life" ],
+        ],
+      },
+      {
+        q: "Are there any parks you want to go to in the future?",
+        lines: [
+          [ "Cat Tien ", { hint: "Na", answer: "National" }, " Park" ],
+          "see many photos and videos of the park",
+          [ "Beautiful / amazing ", { hint: "sce", answer: "scenery" } ],
+          [ { hint: "de", answer: "dense" }, " forest" ],
+          [ "diverse ", { hint: "wild", answer: "wildlife" } ],
+          [ "Go ", { hint: "hi", answer: "hiking" }, " / ", { hint: "cy", answer: "cycling" } ],
+          "enjoy the fresh air",
+          [ { hint: "surr", answer: "surrounded" }, " by nature" ],
+          [ { hint: "es", answer: "escape" }, " the noise of the city" ],
+        ],
+      },
+    ],
+  },
+  {
+    label: "Part 2",
+    title: "A friend from your childhood",
+    prompt: "Describe a friend from your childhood",
+    bullets: [
+      "Who he/she is",
+      "Where and how you met each other",
+      "What you often did together",
+      "And explain what made you like him/her",
+    ],
+    questions: [
+      {
+        q: null,
+        lines: [
+          [ "met in ", { hint: "pri", answer: "primary" }, " school" ],
+          "study in the same class",
+          "not very close at first",
+          "later become good friends",
+          [ "share similar ", { hint: "inter", answer: "interests" } ],
+          "spend a lot of time together",
+          "play football",
+          [ "ride bicycles around the ", { hint: "neigh", answer: "neighborhood" } ],
+          [ "go to internet ", { hint: "c", answer: ["cafes","cafés"] }, " to play games" ],
+          [ "Like his ", { hint: "person", answer: "personality" } ],
+          "friendly, funny",
+          [ { hint: "W", answer: "Warm" }, "-hearted" ],
+          [ { hint: "wil", answer: "willing" }, " to help others" ],
+          [ "have ", { hint: "diffi", answer: "difficulties" }, " with studying" ],
+          [ "have ", { hint: "per", answer: "personal" }, " problems" ],
+          [ "listen to me and give me ", { hint: "ad", answer: "advice" } ],
+          [ { hint: "con", answer: "consider" }, " him an important friend in my life" ],
+          [ "Even though many years have ", { hint: "pas", answer: "passed" } ],
+          [ "Still ", { hint: "k", answer: "keep" }, " in close ", { hint: "con", answer: "contact" }, " with him" ],
+        ],
+      },
+    ],
+  },
+  {
+    label: "Part 3",
+    title: "Friendship & Communication — Discussion",
+    questions: [
+      {
+        q: "Do you still keep in touch with your friends from childhood? Why or why not?",
+        lines: [
+          [ "keep in ", { hint: "", answer: "touch" }, " with a few close childhood friends" ],
+          [ "everyone has become ", { hint: "", answer: "busy" }, " with their own lives" ],
+          "Be busy with work and study",
+          "Only chat online",
+          [ "meet ", { hint: "occa", answer: "occasionally" } ],
+          [ "hear news about them through ", { hint: "", answer: "social" }, " media" ],
+        ],
+      },
+      {
+        q: "What do you think of communicating via social media?",
+        lines: [
+          [ "both ", { hint: "ad", answer: "advantages" }, " and disadvantages" ],
+          [ "stay ", { hint: "con", answer: "connected" }, " with friends and family" ],
+          [ "Keep in ", { hint: "", answer: "touch" }, " with friends and family" ],
+          [ "send messages ", { hint: "ins", answer: "instantly" } ],
+          [ { hint: "m", answer: "make" }, " video calls" ],
+          [ { hint: "main", answer: "maintain" }, " relationships" ],
+          [ { hint: "re", answer: "relying" }, " too much on social media" ],
+          [ "reduce face-", { hint: "to", answer: "to-face" }, " communication" ],
+          [ "affect real-", { hint: "l", answer: "life" }, " relationships" ],
+        ],
+      },
+      {
+        q: "Do you think online communication through social media will replace face-to-face communication?",
+        lines: [
+          [ "face-to-face communication is more ", { hint: "mean", answer: "meaningful" } ],
+          [ "meet sb in ", { hint: "pe", answer: "person" } ],
+          [ "Communicate with sb in ", { hint: "pe", answer: "person" } ],
+          [ "understand ", { hint: "bo", answer: "body" }, " language, facial ", { hint: "exp", answer: "expressions" }, ", and ", { hint: "emo", answer: "emotions" } ],
+          "create stronger relationships",
+          [ "Meaningful / ", { hint: "gen", answer: "genuine" }, " relationships" ],
+          [ "play an important ", { hint: "", answer: "role" } ],
+          [ "work ", { hint: "along", answer: "alongside" }, " face-to-face ", { hint: "inte", answer: "interaction" }, " rather than replace it" ],
+        ],
+      },
+      {
+        q: "What's the difference between having younger friends and older friends?",
+        lines: [
+          [ "Older friends: have more ", { hint: "expe", answer: "experience" } ],
+          [ "give useful ", { hint: "ad", answer: "advice" } ],
+          [ "younger friends: more ", { hint: "ener", answer: "energetic" } ],
+          [ "Be ", { hint: "", answer: "open" }, " to new ideas" ],
+          [ "both kinds of friendships are ", { hint: "va", answer: "valuable" } ],
+        ],
+      },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Render                                                              */
+/* ------------------------------------------------------------------ */
+const app = document.getElementById("app");
+const inputs = []; // { el, answers, hint }
+
+function normalize(s){
+  return String(s||"").trim().toLowerCase().replace(/[''`]/g,"'").replace(/\s+/g," ");
+}
+
+function renderSegment(seg, container){
+  if (typeof seg === "string"){
+    container.appendChild(document.createTextNode(seg));
+    return;
+  }
+  const { hint, answer } = seg;
+  const answers = Array.isArray(answer) ? answer : [answer];
+  // Determine width based on longest accepted answer
+  const maxLen = Math.max(...answers.map(a => a.length));
+  const widthPx = Math.max(80, Math.min(220, maxLen * 11 + 20));
+
+  const wrap = document.createElement("span");
+  wrap.className = "blank-wrap";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.autocomplete = "off";
+  input.autocapitalize = "off";
+  input.spellcheck = false;
+  input.className = "blank";
+  input.style.setProperty("--w", widthPx + "px");
+  // Hint as placeholder showing letters + dashes
+  const dashCount = Math.max(2, maxLen - hint.length);
+  input.placeholder = hint + "_".repeat(Math.min(dashCount, 8));
+  input.dataset.hint = hint;
+  input.addEventListener("input", () => {
+    // Clear result class as soon as user edits
+    input.classList.remove("ok","bad");
+    mark.classList.remove("show","ok","bad");
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter"){
+      e.preventDefault();
+      checkAll();
+    }
+  });
+
+  const mark = document.createElement("span");
+  mark.className = "blank-mark";
+
+  wrap.appendChild(input);
+  wrap.appendChild(mark);
+  container.appendChild(wrap);
+
+  inputs.push({ el: input, mark, answers: answers.map(normalize), hint });
+}
+
+function renderLine(line, container){
+  const div = document.createElement("div");
+  div.className = "line";
+  if (typeof line === "string") {
+    div.classList.add("plain");
+    const bullet = document.createElement("span");
+    bullet.className = "bullet";
+    bullet.textContent = "·";
+    div.appendChild(bullet);
+    div.appendChild(document.createTextNode(line));
+  } else {
+    const bullet = document.createElement("span");
+    bullet.className = "bullet";
+    bullet.textContent = "·";
+    div.appendChild(bullet);
+    line.forEach(seg => renderSegment(seg, div));
+  }
+  container.appendChild(div);
+}
+
+CONTENT.forEach((part, pIdx) => {
+  const section = document.createElement("section");
+  section.className = "part";
+
+  const label = document.createElement("p");
+  label.className = "part-label";
+  label.textContent = part.label;
+  section.appendChild(label);
+
+  const titleEl = document.createElement("h2");
+  titleEl.className = "part-title";
+  titleEl.textContent = part.title;
+
+  const meta = document.createElement("span");
+  meta.className = "section-meta";
+  meta.dataset.section = pIdx;
+  meta.innerHTML = '<b data-score="0">0</b> / <span data-total="0">0</span>';
+  titleEl.appendChild(meta);
+  section.appendChild(titleEl);
+
+  if (part.prompt){
+    const p = document.createElement("p");
+    p.className = "q-text";
+    p.style.fontStyle = "italic";
+    p.style.fontFamily = '"Source Serif 4", Georgia, serif';
+    p.style.fontSize = "19px";
+    p.style.margin = "0 0 6px";
+    p.textContent = part.prompt;
+    section.appendChild(p);
+
+    const yss = document.createElement("p");
+    yss.style.fontFamily = '"IBM Plex Mono", monospace';
+    yss.style.fontSize = "11px";
+    yss.style.letterSpacing = "0.1em";
+    yss.style.textTransform = "uppercase";
+    yss.style.color = "var(--muted)";
+    yss.style.margin = "0 0 6px";
+    yss.textContent = "You should say:";
+    section.appendChild(yss);
+
+    const bullets = document.createElement("div");
+    bullets.className = "p2-bullets";
+    part.bullets.forEach(b => {
+      const d = document.createElement("div");
+      d.textContent = b;
+      bullets.appendChild(d);
+    });
+    section.appendChild(bullets);
+  }
+
+  part.questions.forEach((q, qIdx) => {
+    const qBlock = document.createElement("div");
+    qBlock.className = "question";
+    qBlock.dataset.section = pIdx;
+
+    if (q.q){
+      const head = document.createElement("div");
+      head.className = "q-head";
+      const num = document.createElement("span");
+      num.className = "q-num";
+      num.textContent = (qIdx + 1) + ".";
+      const txt = document.createElement("p");
+      txt.className = "q-text";
+      txt.textContent = q.q;
+      head.appendChild(num);
+      head.appendChild(txt);
+      qBlock.appendChild(head);
+    }
+
+    const prompt = document.createElement("div");
+    prompt.className = "prompt-block";
+    const lines = document.createElement("div");
+    lines.className = "lines";
+    q.lines.forEach(line => renderLine(line, lines));
+    prompt.appendChild(lines);
+    qBlock.appendChild(prompt);
+
+    section.appendChild(qBlock);
+  });
+
+  app.appendChild(section);
+});
+
+/* ------------------------------------------------------------------ */
+/* Check / Reset / Score                                               */
+/* ------------------------------------------------------------------ */
+const btnCheck = document.getElementById("btn-check");
+const btnReset = document.getElementById("btn-reset");
+const scoreNum = document.getElementById("score-num");
+const scoreDots = document.getElementById("score-dots");
+const toast = document.getElementById("toast");
+
+let hasChecked = false;
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+function checkAll(){
+  let correct = 0;
+  const total = inputs.length;
+  // Per-section tallies
+  const partCorrect = {};
+  const partTotal = {};
+
+  // Build a quick index of which section each input belongs to
+  // (walk DOM)
+  const blankElems = document.querySelectorAll(".blank");
+  blankElems.forEach((el, i) => {
+    const section = el.closest(".part");
+    const pIdx = [...document.querySelectorAll(".part")].indexOf(section);
+    partTotal[pIdx] = (partTotal[pIdx] || 0) + 1;
+
+    const rec = inputs[i];
+    const val = normalize(rec.el.value);
+    if (!val){
+      rec.el.classList.remove("ok","bad");
+      rec.mark.classList.remove("show","ok","bad");
+      return;
+    }
+    const ok = rec.answers.includes(val);
+    rec.el.classList.toggle("ok", ok);
+    rec.el.classList.toggle("bad", !ok);
+    rec.mark.classList.add("show");
+    rec.mark.classList.toggle("ok", ok);
+    rec.mark.classList.toggle("bad", !ok);
+    rec.mark.textContent = ok ? "✓" : "✕";
+    if (ok){
+      correct++;
+      partCorrect[pIdx] = (partCorrect[pIdx] || 0) + 1;
+    }
+  });
+
+  scoreNum.textContent = correct + " / " + total;
+
+  // Per-section meta
+  document.querySelectorAll(".section-meta").forEach(meta => {
+    const idx = +meta.dataset.section;
+    const c = partCorrect[idx] || 0;
+    const t = partTotal[idx] || 0;
+    meta.querySelector("[data-score]").textContent = c;
+    meta.querySelector("[data-total]").textContent = t;
+  });
+
+  // Dots
+  scoreDots.innerHTML = "";
+  const dotCount = Math.min(total, 40);
+  // visualize using ratio
+  const filled = Math.round((correct / total) * dotCount);
+  for (let i = 0; i < dotCount; i++){
+    const d = document.createElement("span");
+    d.className = "score-dot " + (i < filled ? "ok" : "");
+    scoreDots.appendChild(d);
+  }
+
+  hasChecked = true;
+  if (correct === total){
+    showToast("All correct — excellent work.");
+  } else {
+    const wrong = total - correct;
+    const empty = [...blankElems].filter(el => !el.value.trim()).length;
+    if (empty > 0 && correct + wrong < total - empty) {
+      showToast(`Checked. ${empty} blank${empty===1?"":"s"} still empty.`);
+    } else {
+      showToast(`Checked. Try the red ones again.`);
+    }
+  }
+
+  // Submit results to Google Form (non-blocking)
+  submitToGoogleForm(correct, total);
+}
+
+function resetAll(){
+  inputs.forEach(rec => {
+    rec.el.value = "";
+    rec.el.classList.remove("ok","bad");
+    rec.mark.classList.remove("show","ok","bad");
+  });
+  scoreNum.textContent = "0 / " + inputs.length;
+  scoreDots.innerHTML = "";
+  document.querySelectorAll(".section-meta").forEach(meta => {
+    meta.querySelector("[data-score]").textContent = "0";
+  });
+  hasChecked = false;
+  hasSubmitted = false;
+  showToast("Cleared.");
+}
+
+// Initialize totals in section meta
+(function initTotals(){
+  document.querySelectorAll(".part").forEach((section, pIdx) => {
+    const count = section.querySelectorAll(".blank").length;
+    const meta = section.querySelector(".section-meta");
+    if (meta) meta.querySelector("[data-total]").textContent = count;
+  });
+  scoreNum.textContent = "0 / " + inputs.length;
+})();
+
+btnCheck.addEventListener("click", checkAll);
+btnReset.addEventListener("click", resetAll);
+
+/* ------------------------------------------------------------------ */
+/* Student-info gate + Google Form submission                          */
+/* ------------------------------------------------------------------ */
+const GOOGLE_FORM = {
+  formId: "1FAIpQLSdp8Nc4ZhU4hUJRE3wIimOKgN7TIspTn6SLBXnUPX26au4MPg",
+  fields: {
+    name:    "entry.680558709",
+    class:   "entry.358570298",
+    answers: "entry.1633267752",
+    score:   "entry.902283495",
+  },
+};
+
+const student = { name: "", class: "" };
+
+// Gate elements
+const gateOverlay = document.getElementById("gate-overlay");
+const gateName    = document.getElementById("gate-name");
+const gateClass   = document.getElementById("gate-class");
+const gateError   = document.getElementById("gate-error");
+const gateStart   = document.getElementById("gate-start");
+
+function startPractice(){
+  const nameVal  = gateName.value.trim();
+  const classVal = gateClass.value.trim();
+  gateName.classList.toggle("invalid", !nameVal);
+  gateClass.classList.toggle("invalid", !classVal);
+  if (!nameVal || !classVal){
+    gateError.textContent = "Please enter both your name and your class.";
+    (nameVal ? gateClass : gateName).focus();
+    return;
+  }
+  student.name  = nameVal;
+  student.class = classVal;
+  gateError.textContent = "";
+  gateOverlay.style.display = "none";
+
+  // Show identity in the masthead
+  const masthead = document.querySelector(".masthead .meta");
+  if (masthead){
+    const tag = document.createElement("div");
+    tag.className = "student-tag";
+    tag.innerHTML = `Student · <b></b><br/>Class · <b></b>`;
+    tag.querySelectorAll("b")[0].textContent = student.name;
+    tag.querySelectorAll("b")[1].textContent = student.class;
+    masthead.appendChild(tag);
+  }
+}
+
+gateStart.addEventListener("click", startPractice);
+[gateName, gateClass].forEach(el => {
+  el.addEventListener("keydown", e => {
+    if (e.key === "Enter"){ e.preventDefault(); startPractice(); }
+  });
+  el.addEventListener("input", () => {
+    el.classList.remove("invalid");
+    gateError.textContent = "";
+  });
+});
+// Focus name field on load
+setTimeout(() => gateName.focus(), 50);
+
+// Collect every blank's answer (value + which question/line it belongs to)
+function collectAnswers(){
+  const lines = [];
+  document.querySelectorAll(".part").forEach((section, pIdx) => {
+    const partLabel = section.querySelector(".part-label")?.textContent?.trim() || `Part ${pIdx+1}`;
+    const partTitle = section.querySelector(".part-title")?.firstChild?.textContent?.trim() || "";
+    lines.push(`=== ${partLabel} — ${partTitle} ===`);
+    section.querySelectorAll(".question").forEach((qBlock, qIdx) => {
+      const qText = qBlock.querySelector(".q-text")?.textContent?.trim();
+      if (qText) lines.push(`Q${qIdx+1}. ${qText}`);
+      qBlock.querySelectorAll(".blank").forEach((el, bIdx) => {
+        const val = el.value.trim();
+        const status = el.classList.contains("ok") ? "✓"
+                      : el.classList.contains("bad") ? "✕"
+                      : "·";
+        lines.push(`  [${status}] (hint: ${el.dataset.hint || "-"}) → ${val || "(blank)"}`);
+      });
+    });
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
+let hasSubmitted = false;
+function submitToGoogleForm(correct, total){
+  // Avoid double-submission for the same check session
+  if (hasSubmitted) return;
+  hasSubmitted = true;
+
+  const url = `https://docs.google.com/forms/d/e/${GOOGLE_FORM.formId}/formResponse`;
+
+  // Build URL-encoded body — Google Forms expects application/x-www-form-urlencoded,
+  // NOT multipart/form-data (which is what FormData would send).
+  const params = new URLSearchParams();
+  params.append(GOOGLE_FORM.fields.name,    student.name);
+  params.append(GOOGLE_FORM.fields.class,   student.class);
+  params.append(GOOGLE_FORM.fields.answers, collectAnswers());
+  params.append(GOOGLE_FORM.fields.score,   `${correct} / ${total}`);
+
+  // Primary path: hidden-iframe HTML-form submission. This is the most reliable
+  // method because it mimics a real <form> POST and bypasses CORS entirely
+  // (the response loads into the iframe instead of being read by JS).
+  try {
+    let iframe = document.getElementById("gf-sink");
+    if (!iframe){
+      iframe = document.createElement("iframe");
+      iframe.name = "gf-sink";
+      iframe.id   = "gf-sink";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+    }
+    const form = document.createElement("form");
+    form.action = url;
+    form.method = "POST";
+    form.target = "gf-sink";
+    form.style.display = "none";
+    Object.entries({
+      [GOOGLE_FORM.fields.name]:    student.name,
+      [GOOGLE_FORM.fields.class]:   student.class,
+      [GOOGLE_FORM.fields.answers]: collectAnswers(),
+      [GOOGLE_FORM.fields.score]:   `${correct} / ${total}`,
+    }).forEach(([k, v]) => {
+      const inp = document.createElement("input");
+      inp.type  = "hidden";
+      inp.name  = k;
+      inp.value = v;
+      form.appendChild(inp);
+    });
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(() => form.remove(), 2000);
+    showToast("Results submitted.");
+  } catch (err) {
+    // Fallback: fetch with URLSearchParams (correct Content-Type)
+    fetch(url, {
+      method:  "POST",
+      mode:    "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body:    params.toString(),
+    })
+      .then(() => { showToast("Results submitted."); })
+      .catch(() => {
+        hasSubmitted = false; // allow retry on next check
+        showToast("Could not submit results. Check your connection.");
+      });
+  }
+}
+</script>
+</body>
+</html>
